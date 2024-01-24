@@ -107,8 +107,39 @@ def ex4_7():
 
 #ex.8
 def ex4_8():
-    pass  
+    for _ in range(5):
+        for _ in range(5):
+            print('*', end='')
+        print()  
+    print()
+    for i in range(5):
+        for j in range(5-i):
+            print('*',end='')
+        print()
 
+    for i in range(1,10):
+        if i <= 5:
+            for _ in range(i):
+                print('*', end='')
+        else:
+            for _ in range((i-10 )* -1):
+                print('*', end='')
+        print()
+    print()
+    for i in range(5):
+        if i < 3:
+            for j in range(5):
+                if i == j or i + j == 5 - 1:
+                    print("*", end="")
+                else:
+                    print(" ", end="")
+        elif i > 2:  
+            for j in range(5):
+                if i == j or i + j == 5 - 1:
+                    print("*", end="")
+                else:
+                    print(" ", end="")
+        print()
 #ex.9 
 def ex4_9():
     pass         
@@ -118,4 +149,4 @@ def ex4_10():
     pass            
 
 
-ex4_7()
+ex4_8()
