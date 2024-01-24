@@ -28,7 +28,13 @@ def ex4_2():
 
 #ex.3
 def ex4_3():
-    pass
+    while x < 100:
+    print(1, x)
+    x += y
+    
+while i >= j:
+    print(2, i)
+    i -= 1
 #ex.4
 def ex4_4():
     pass
