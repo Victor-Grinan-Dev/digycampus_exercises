@@ -1,3 +1,6 @@
+
+from random import randint
+
 #ex.1
 def ex4_1():
     start = 4
@@ -28,16 +31,34 @@ def ex4_2():
 
 #ex.3
 def ex4_3():
+    x = 0
+    y= 99
+    i = 10
+    j = 6
     while x < 100:
-    print(1, x)
-    x += y
+        print(1, x)
+        x += y
     
-while i >= j:
-    print(2, i)
-    i -= 1
+    while i >= j:
+        print(2, i)
+        i -= 1
 #ex.4
 def ex4_4():
-    pass
+    A=50
+    B=55
+    i = 1
+
+    while True:
+        num = randint(1, 100)
+        if num == B:
+            print('B löytyi!')
+            break
+        elif num == A:
+            print('A löytyi!')
+            continue
+        i += 1
+    print(i)
+
 #ex.5
 def ex4_5():
     pass
@@ -58,4 +79,4 @@ def ex4_10():
     pass            
 
 
-ex4_3()
+ex4_4()
