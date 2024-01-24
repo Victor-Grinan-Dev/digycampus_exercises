@@ -69,19 +69,53 @@ def ex4_5():
         print()
 #ex.6
 def ex4_6():
-    pass
+    alku = 1
+    ylaraja = 1005
+    fibonacci_a = 13
+    fibonacci_b = 21
+
+    value = 1000
+    for i in range(1001, ylaraja + 1):
+        value += i
+
+    print(f"1 : {value}")
+
+    for i in range(alku, alku + 101):
+        if i % 5 == 0 and i % 7 == 0:
+            print(f"2: {i}")
+
+        
+    fib_sequence = [fibonacci_a, fibonacci_b]
+
+    # Generate Fibonacci sequence using a for loop
+    for i in range(5):
+        next_term = fib_sequence[i-1] + fib_sequence[i-2]
+        fib_sequence.append(next_term)
+        print(f'3: {next_term}') 
 #ex.7
 def ex4_7():
-    pass
+    korkoprosentti = 12 
+    rahat=168 
+    vuodet = 1
+    Alkupääoma = rahat
+    while vuodet < 5:
+        rahat += rahat*korkoprosentti/100
+        vuosikertyma =  rahat - Alkupääoma
+        print(f'{vuodet} vuoden jälkeen, rahat: {format(rahat, ".2f")} vuosikertymä: {format(vuosikertyma, ".2f")}') 
+        Alkupääoma = rahat
+        vuodet += 1
+
 #ex.8
 def ex4_8():
-    pass
+    pass  
+
 #ex.9 
 def ex4_9():
-    pass             
+    pass         
+
 #ex.10
 def ex4_10():
     pass            
 
 
-ex4_5()
+ex4_7()
