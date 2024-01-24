@@ -61,7 +61,12 @@ def ex4_4():
 
 #ex.5
 def ex4_5():
-    pass
+    x=5
+    y=7
+    for _ in range(x):
+        for _ in range(y):
+            print('*', end='')
+        print()
 #ex.6
 def ex4_6():
     pass
@@ -79,4 +84,4 @@ def ex4_10():
     pass            
 
 
-ex4_4()
+ex4_5()
