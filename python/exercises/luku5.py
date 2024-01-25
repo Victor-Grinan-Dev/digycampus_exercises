@@ -99,5 +99,43 @@ def standard_grav_parameter(x):
 def orbital_period(m, rmin, rmax):
    return (2 * math.pi) * (math.sqrt(pow(semi_major_axis(rmin, rmax),3)/standard_grav_parameter(m)))
 
-print(semi_major_axis(15,2))
-print(semi_major_axis(69816900000,46001200000), 'm')
+# print(semi_major_axis(15,2))
+# print(semi_major_axis(69816900000,46001200000), 'm')
+
+#ex.8
+def piirra( side_y:int, side_x:int, hollow:bool):
+    if not hollow:
+        for _ in range(side_x):
+            for _ in range(side_y):
+                print('O', end='')
+            print()
+    else:
+        for x in range(side_x):
+            for y in range(side_y):
+                if y == 0 or x == 0 or y ==side_y-1 or x==side_x-1:
+                    print('O', end='')
+                else:
+                    print('   ', end='')#In the exercise you need 3 spaces, in console only 1
+            print()
+
+leveys = 5
+korkeus = 10
+ontto = True
+
+print('Arvot:')
+print('leveys:',leveys)
+print('korkeus:',korkeus)
+print('Ontto:',ontto)
+
+piirra(leveys,korkeus,ontto)
+
+leveys = 4
+korkeus = 4
+ontto = True
+
+print('Arvot:')
+print('leveys:',leveys)
+print('korkeus:',korkeus)
+print('Ontto:',ontto)
+
+piirra(leveys,korkeus,ontto)
