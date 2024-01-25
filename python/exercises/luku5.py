@@ -76,3 +76,28 @@ def ceil_rect_area(x,y):
     return math.ceil(x*y)
 
 #ex.6
+def toisto_tulostus(teksti, n):
+    for i in range(n):
+        print(teksti)
+        
+def suurin_neljasta(a, b, c, d):
+    return max(a, b, c, d)
+    
+def pienenna(luku, raja, askel):
+    while luku > raja:
+        luku -= askel
+    return luku
+
+#ex.7
+def semi_major_axis(a, b):
+    return (b+a)/2
+    
+def standard_grav_parameter(x):
+    global G
+    return G*x
+
+def orbital_period(m, rmin, rmax):
+   return (2 * math.pi) * (math.sqrt(pow(semi_major_axis(rmin, rmax),3)/standard_grav_parameter(m)))
+
+print(semi_major_axis(15,2))
+print(semi_major_axis(69816900000,46001200000), 'm')
