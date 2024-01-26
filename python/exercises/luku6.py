@@ -12,7 +12,11 @@ def lue_tiedosto1(tiedostopolku):
     
 
 #ex.2
-def tallenna2(oppilaat, pisteet):
+def tallenna2#ex.5
+def tallenna(tiedostopolku, asiakas_nro, nimi, tilaus):
+    file = open(tiedostopolku, 'a')
+    file.write(f"{asiakas_nro}:{nimi}\n * {tilaus}\n\n")
+    file.close()(oppilaat, pisteet):
     students_file = open('oppilaat.txt', 'w')
     for oppilas in oppilaat:
         students_file.write(oppilas + '\n')
@@ -44,3 +48,4 @@ def lue_tiedosto4(tiedostopolku):
         print(f"Tiedostoa {tiedostopolku} ei löydy!")
     except Exception as e:
         print(f"An error occurred: {e}", end='')
+
