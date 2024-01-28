@@ -1,4 +1,7 @@
+import os
+import datetime
 #ex.1
+
 def lue_tiedosto1(tiedostopolku):
     try:
         file = open(tiedostopolku, 'r')
@@ -93,3 +96,53 @@ os.rename()
 datetime.date.today() 
 str(datetime.date.today())
 """
+
+#ex.7
+def paivita_kirjautuminen(asiakasnro):
+    # tiedoston sijainti
+    polku = 'kirjautumiset.txt'
+    file_found = False
+    iter_counter = 0
+
+    try:
+        file = open(polku, 'r')
+        temp = open('temp.txt', 'a')
+        
+        for line in file:
+            record = str(line).strip()
+            # print(record)
+            if file_found and iter_counter < 2:
+                temp.write(f'{record}\n')
+                iter_counter += 1
+
+            elif file_found and iter_counter == 2:
+                temp.write(f'{str(datetime.date.today())}\n')
+                
+                iter_counter += 1
+
+            elif record != str(asiakasnro):
+                temp.write(f"{record}\n")
+
+            elif record == str(asiakasnro):
+                file_found = True
+                temp.write(f'{record}\n')
+
+        # Close both files.
+        file.close()
+        temp.close()
+
+        # Delete (see the os module above) the old file.
+        os.remove(polku)
+
+        # Rename the temporary file to the same name as the file you just deleted.
+        os.rename('temp.txt', polku)
+        
+        # Print the end result
+        print('Tiedosto päivitetty!' if file_found else 'Tietuetta ei löytynyt!')
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+# Example usage
+number = 941
+paivita_kirjautuminen(number)
