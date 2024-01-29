@@ -146,7 +146,39 @@ def paras(henkilot_ja_pisteet):
             result = [nimi, round(total, 2)]
          
     return tuple(result)
+# id,rated,created_at,last_move_at,turns,victory_status,winner,increment_code,white_id,white_rating,black_id,black_rating,moves,opening_eco,opening_name,opening_ply
+def Print_Chess_Wins(startRow, endRow):
+    white_ranked = 0
+    black_ranked = 0
+    white_unranked = 0
+    black_unranked = 0
+    actual_start_row = startRow
+    if actual_start_row == 0:
+        actual_start_row = 1
+    try:
+        f = open('games.csv', 'r')
+        lines = [line.rstrip() for line in f]
+        section = lines[actual_start_row:endRow]
+        for entry in section:
+            line_content = entry.split(',')
+            if line_content[1].lower() == 'true' and line_content[6].lower() == 'white':
+                white_ranked += 1
+            elif line_content[1].lower() == 'false' and line_content[6].lower() == 'white':
+                white_unranked += 1
+            elif line_content[1].lower() == 'true' and line_content[6].lower() == 'black':
+                black_ranked += 1
+            elif line_content[1].lower() == 'false' and line_content[6].lower() == 'black':
+                black_unranked += 1
+        f.close()
 
-# print(lapipaasseet(pisteet))
-lapipaasseet(pisteet, 100)
-print(paras(pisteet))
+        print(f"""Chess data ( {startRow} - {endRow} )
+Ranked wins
+White: {white_ranked}  Black: {black_ranked}
+Unranked wins
+White: {white_unranked}  Black: {black_unranked}
+    """)
+    except Exception as e:
+        print('an error has occurred: ', e)
+
+Print_Chess_Wins(3000, 15000)
+Print_Chess_Wins(0, 20059)
