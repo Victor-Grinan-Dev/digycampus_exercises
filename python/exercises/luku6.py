@@ -117,7 +117,6 @@ def paivita_kirjautuminen(asiakasnro):
 
             elif file_found and iter_counter == 2:
                 temp.write(f'{str(datetime.date.today())}\n')
-                
                 iter_counter += 1
 
             elif record != str(asiakasnro):
