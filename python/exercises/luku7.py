@@ -87,15 +87,17 @@ def unique_count7(lista):
 #ex.8
 ainesto = ['mölyapina', 'kummituseläin', 'marakatti', 'bonobo','marakatti', 'mölyapina', 'oranki', 'kummituseläin', 'marakatti', 'apina','ihminen', 'kummituseläin', 'apina', 'bonobo', 'marakatti']
 def kaikki8(aineisto, haettava):
-    
     result = []
-    for element in aineisto :
-        for item in haettava:
-            if element == item:
-                result.append(aineisto.index(element))
+    for item in haettava :
+        for index in range(len(aineisto)):
+            if aineisto[index] == item:
+                result.append(index)
+    result.sort()
     return result
 
-def ex8():  	
-    pass
+#ex.9
+def lapipaasseet(henkilot_ja_pisteet):  	
+    pisteet = [['Timo', 25.24, 13.23], ['Silja', 10.92], ['Pirkka', 250.42]]
 
-print(kaikki8(ainesto, ['marakatti', 'mölyapina',]))
+print(kaikki8(ainesto, ['marakatti', 'mölyapina']))
+print(kaikki8(ainesto, []))
