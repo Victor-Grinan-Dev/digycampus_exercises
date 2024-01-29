@@ -1,5 +1,6 @@
 #ex.1
 # Lst[ Initial : End : IndexJump ]
+import math
 import random
 
 
@@ -96,8 +97,56 @@ def kaikki8(aineisto, haettava):
     return result
 
 #ex.9
-def lapipaasseet(henkilot_ja_pisteet):  	
-    pisteet = [['Timo', 25.24, 13.23], ['Silja', 10.92], ['Pirkka', 250.42]]
+pisteet = [
+    ['Pirkko', 91.95, 31.72, 31.05],
+    ['Leena', 14.72, 16.63, 80.59, 38.69, 51.85],
+    ['Maarit', 61.15, 84.1, 81.17],
+    ['Sami', 60.96],
+    ['Elisabet', 75.66, 80.76, 45.48],
+    ['Johannes', 53.5, 90.6, 27.04, 84.06],
+    ['Kalervo', 24.35],
+    ['Kyllikki', 87.86, 64.44],
+    ['Sari', 78.78, 68.66],
+    ['Jaakko', 47.98, 21.44, 61.46, 80.28, 7.26],
+    ['Henrik', 73.19, 40.39],
+    ['Minna', 77.17, 80.78],
+    ['Heikki', 22.36, 82.82],
+    ['Pekka', 30.8, 83.38, 68.0],
+    ['Päivi', 46.39, 96.05, 87.75, 6.68],
+    ['Ari', 8.21],
+    ['Petteri', 10.6, 84.56, 10.64, 1.84],
+    ['Helena', 63.45, 34.35, 23.65, 97.23],
+    ['Marika', 34.89],
+    ['Ville', 29.06, 11.03, 65.78, 76.9, 93.65],
+]
+def lapipaasseet(henkilot_ja_pisteet, pisteraja): 
+    tuloslista = []
+    for element in henkilot_ja_pisteet:
+        nimi = element[0]
+        pisteet = element[1:] 
+        total = 0
+        for piste in pisteet:
+            total += piste	
+            if total >= pisteraja:
+                tuloslista.append(nimi)
+                break
+    return tuloslista
+def paras(henkilot_ja_pisteet): 
+    result = []
+    paras = 0
+    for element in henkilot_ja_pisteet:
+        nimi = element[0]
+        pisteet = element[1:] 
+        total = 0
+        for piste in pisteet:
+            total += piste	
+         
+        if total > paras:
+            paras = total
+            result = [nimi, round(total, 2)]
+         
+    return tuple(result)
 
-print(kaikki8(ainesto, ['marakatti', 'mölyapina']))
-print(kaikki8(ainesto, []))
+# print(lapipaasseet(pisteet))
+lapipaasseet(pisteet, 100)
+print(paras(pisteet))
