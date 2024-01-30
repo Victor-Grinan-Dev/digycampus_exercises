@@ -95,4 +95,41 @@ for x in range(10):
     num = str(random.randint(100000, 300000))
     opiskelijat.append([nimi,snimi,num])
 
-print(luo_tunnukset(opiskelijat))
+# print(luo_tunnukset(opiskelijat))
+
+#ex.4
+"""
+Create a function that checks whether the imaginary string passed to it is a valid file name, meaning it contains both the file name (prefix) and the file extension (global constant FILE_EXTENSIONS, which is a list of strings).
+
+Create a 'check' function that checks the given string and prints:
+
+'CORRECT' : if the string ends with one of the file extensions given in the task.
+'WRONG' : if the string does not end with any of the specified file extensions OR if the string STARTS with any of the specified file extensions.
+"""
+files = ['aamupala',
+'aurinko.doc',
+'paivakirja.jpg',
+'koirienkanssarannalla',
+'koirienkanssarannalla.txt',
+'koirienkanssarannalla.jpg',
+'tiliote2019.png',
+'.jpg',
+'koirienkanssarannalla.png',
+'aamupala.doc',
+'.jpgAurinko',
+'Aurinko.jpg',
+'.jpg',
+'.jpg.jpg']
+
+TIEDOSTOPAATTEET = ['.txt', '.jpg', '.png', '.html', '.doc']
+
+def tarkista(merkkijonoja):
+    if len(merkkijonoja.split('.')) > 2 or len(merkkijonoja.split('.')) <= 1 or merkkijonoja.startswith('.'):
+        return 'VÄÄRIN'
+    else:
+        return 'OIKEIN'
+
+for i in range(len(files)):
+    print('tarkistetaan '  + files[i] + ' - ' + tarkista(files[i]))
+    print()
+
