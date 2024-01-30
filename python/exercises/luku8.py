@@ -129,9 +129,9 @@ def tarkista(merkkijonoja):
     else:
         return 'OIKEIN'
 
-for i in range(len(files)):
-    print('tarkistetaan '  + files[i] + ' - ' + tarkista(files[i]))
-    print()
+# for i in range(len(files)):
+    # print('tarkistetaan '  + files[i] + ' - ' + tarkista(files[i]))
+    # print()
 
 #ex.5
 text = "Kallen Rautakanget Oy, on suomessa 1810 perustettu yritys, jonka merkittävimpiä tuotteita ovat erilaiset rautakanget. Vuonna 1920 yrityksen johtoon astui Kalle Kankinen, perheyrityksen nuorimmainen, joka uudisti merkittävästi yrityksen ulkoasua ja markkinointia. Kallen Rautakanget Oy:n uudeksi maskotiksi tulikin Paavo Pesukarhu, joka rautakanki kädessä tutkiskelee roskakoreja"
@@ -142,3 +142,43 @@ def korjaa_teksti(teksti):
     print(step3)
 
 # korjaa_teksti(text)
+    
+#ex.6
+text = 'yksinkertainen testi. toimiikohan funktiosi'
+def isot_alkukirjaimet(merkkijono):
+    final_merkkijono_lista = []
+    merkkijono_lista = merkkijono.split('. ')
+
+    for sentence in range(len(merkkijono_lista)):
+        clean_sentence = merkkijono_lista[sentence].strip()
+        final_merkkijono_lista.append(clean_sentence[0].upper() + clean_sentence[1:])
+
+    final_text = '. '.join(final_merkkijono_lista)
+    return final_text
+
+# print(isot_alkukirjaimet(text))
+"""
+# In English
+# Imagine that you work at Margeta Advertising Ltd., and your most important client, 'Kake's Bars Ltd.', has ended up in a media storm. The company's iron bars have gained popularity in the underworld, and after the latest burglary chain, the company has decided to change its name and remove any materials that refer to crimes from its media content!
+
+# Write a function called 'fix_text' that takes a text as an argument. Replace all occurrences of the old company name 'Kake's Bars Ltd.' with the new company name 'Kalle's Iron Bars Ltd'.
+
+# Also, replace all mentions of the word 'robbery' with the word 'inspections' and 'shady dealings' with the word 'renovations'.
+
+# Finally, print the modified text!
+
+def fix_text(text):
+    # Replace old company name with new company name
+    updated_text = text.replace("Kake's Bars Ltd.", "Kalle's Iron Bars Ltd.")
+    
+    # Replace words related to crimes
+    updated_text = updated_text.replace('robbery', 'inspections')
+    updated_text = updated_text.replace('shady dealings', 'renovations')
+    
+    print(updated_text)
+
+# Example usage:
+text_to_fix = "Kake's Bars Ltd. is famous for producing high-quality iron bars. Unfortunately, the recent robbery and shady dealings have caused a lot of trouble for Kake's Bars Ltd."
+fix_text(text_to_fix)
+
+"""
