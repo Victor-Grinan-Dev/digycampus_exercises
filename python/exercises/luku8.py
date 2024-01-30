@@ -158,27 +158,69 @@ def isot_alkukirjaimet(merkkijono):
 
 # print(isot_alkukirjaimet(text))
 """
-# In English
-# Imagine that you work at Margeta Advertising Ltd., and your most important client, 'Kake's Bars Ltd.', has ended up in a media storm. The company's iron bars have gained popularity in the underworld, and after the latest burglary chain, the company has decided to change its name and remove any materials that refer to crimes from its media content!
+# Write a function 'remove_parentheses' that processes the given text (string) and removes everything inside parentheses or [square brackets]. The function also ensures that removing parentheses does not result in double spaces.
 
-# Write a function called 'fix_text' that takes a text as an argument. Replace all occurrences of the old company name 'Kake's Bars Ltd.' with the new company name 'Kalle's Iron Bars Ltd'.
+# Example:
+# "Hello [there]" -> "Hello" and NOT "Hello  "
 
-# Also, replace all mentions of the word 'robbery' with the word 'inspections' and 'shady dealings' with the word 'renovations'.
-
-# Finally, print the modified text!
-
-def fix_text(text):
-    # Replace old company name with new company name
-    updated_text = text.replace("Kake's Bars Ltd.", "Kalle's Iron Bars Ltd.")
+def remove_parentheses(text):
+    result = ""
+    stack = []  # Use a stack to keep track of open parentheses
     
-    # Replace words related to crimes
-    updated_text = updated_text.replace('robbery', 'inspections')
-    updated_text = updated_text.replace('shady dealings', 'renovations')
+    for char in text:
+        if char == '(' or char == '[':
+            stack.append(char)  # Push open parentheses onto the stack
+        elif char == ')' and stack and stack[-1] == '(':
+            stack.pop()  # Pop matching open parenthesis from the stack
+        elif char == ']' and stack and stack[-1] == '[':
+            stack.pop()  # Pop matching open square bracket from the stack
+        elif not stack:
+            result += char  # Add non-parenthesis characters to the result
     
-    print(updated_text)
+    return result
 
 # Example usage:
-text_to_fix = "Kake's Bars Ltd. is famous for producing high-quality iron bars. Unfortunately, the recent robbery and shady dealings have caused a lot of trouble for Kake's Bars Ltd."
-fix_text(text_to_fix)
+text_to_process = "Hello [there] (and) goodbye"
+result_text = remove_parentheses(text_to_process)
+print(result_text)
+
 
 """
+	
+teksti = "Stephen Fain \"Steve\" Earle (s. 17. tammikuuta 1955 Fort Monroe, Hampton, Virginia) on \
+yhdysvaltalainen muusikko, lauluntekijä ja tuottaja. Nashvillessä 1970-luvun puolivälissä Earle sai \
+opetusta laulujen tekemiseen Townes Van Zandtiltä ja Guy Clarkilta. Earle on ollut yhteiskunnallisesti \
+aktiivinen. Teini-iässä hän vastusti Vietnamin sotaa. Hän on lauluissaan ottanut kantaa sosiaaliseen ja \
+taloudelliseen eriarvoisuuteen. Hän on vastustanut kuolemanrangaistusta ja maamiinoja. Yhdysvaltain \
+presidentinvaaleissa vuonna 2016 hän kannatti Bernie Sandersia. 1990-luvun puolivälissä \
+Earle pääsi eroon pitkään kestäneestä huumeriippuvuudesta.[1][2]"
+teksti2 = "Testataan vielä sisäkkäisten sulkujen (eli tällaisten (sulkujen) ja [hakasulkujen][[hei] ja moi]) toimintaa."
+def poista_sulut(merkkijono):
+    result = ""
+    stack = "" 
+    count_1 = 0
+    count_2 = 0
+    
+    for char in merkkijono:
+        if char == '(':
+             stack += char
+             count_1 += 1
+        elif char == '[':
+            stack += char
+            count_2 += 1
+        elif char == ')' and stack and stack[0] == '(':
+            count_1 -= 1
+            if count_1 == 0:
+                stack = ''
+        elif char == ']' and stack and stack[0] == '[':
+            count_2 -= 1
+            if count_2 == 0:
+                stack = ''
+        elif not stack:
+            result += char 
+
+    result = result.replace('  ', ' ')
+
+    return result
+
+print(poista_sulut(teksti2))
