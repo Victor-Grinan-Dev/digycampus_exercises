@@ -133,3 +133,28 @@ for i in range(len(files)):
     print('tarkistetaan '  + files[i] + ' - ' + tarkista(files[i]))
     print()
 
+#ex.5
+    """
+    # Imagine that you work at Margeta Advertising Ltd., and your most important client, 'Kake's Bars Ltd.', has ended up in a media storm. The company's iron bars have gained popularity in the underworld, and after the latest burglary chain, the company has decided to change its name and remove any materials that refer to crimes from its media content!
+
+# Write a function called 'fix_text' that takes a text as an argument. Replace all occurrences of the old company name 'Kake's Bars Ltd.' with the new company name 'Kalle's Iron Bars Ltd'.
+
+# Also, replace all mentions of the word 'robbery' with the word 'inspections' and 'shady dealings' with the word 'renovations'.
+
+# Finally, print the modified text!
+
+def fix_text(text):
+    # Replace old company name with new company name
+    updated_text = text.replace("Kake's Bars Ltd.", "Kalle's Iron Bars Ltd.")
+    
+    # Replace words related to crimes
+    updated_text = updated_text.replace('robbery', 'inspections')
+    updated_text = updated_text.replace('shady dealings', 'renovations')
+    
+    print(updated_text)
+
+# Example usage:
+text_to_fix = "Kake's Bars Ltd. is famous for producing high-quality iron bars. Unfortunately, the recent robbery and shady dealings have caused a lot of trouble for Kake's Bars Ltd."
+fix_text(text_to_fix)
+This example replaces occurrences of the old company name and certain words in the text and prints the modified text.
+    """
