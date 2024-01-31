@@ -30,5 +30,20 @@ def ex_1():
 
 #ex.2
 def ex_2():
-    
-ex_2()
+    salibandy_osallistujat = set(("Simo", "Emmi", "Jari", "Pirkko", "Jenika","Samir","Tommi", "Aapo"))
+    jaakiekko_osallistujat = set(("Emmi", "Sampo", "Heli", "Tiina", "Samir", "Silja", "Aapo"))
+    koripallo_osallistujat = set(("Iina", "Tiina", "Samir", "Riikka", "Niina", "Tommi", "Aapo", "Pirkko"))
+    joukko_1 = koripallo_osallistujat.intersection(salibandy_osallistujat)
+    joukko_2 = salibandy_osallistujat.union(koripallo_osallistujat)
+    joukko_3 = koripallo_osallistujat.difference(salibandy_osallistujat)
+    joukko_4 = koripallo_osallistujat.symmetric_difference(salibandy_osallistujat)
+    joukko_5 = koripallo_osallistujat.intersection(salibandy_osallistujat, jaakiekko_osallistujat)
+    all_result = [
+            joukko_1,
+            joukko_2,
+            joukko_3,
+            joukko_4,
+            joukko_5
+        ]
+    for i in all_result:
+        print(i)
