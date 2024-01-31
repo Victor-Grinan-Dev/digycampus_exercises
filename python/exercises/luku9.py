@@ -149,4 +149,79 @@ def morsesta(m):
     final_text = ' '.join(final_text_list)
     return final_text.strip()
 
-print(morsesta( ". -. - ?   .--- --- ...   ... . .- ... ... .-   --- -.   . .-. .. -.- --- .. ... -- . .-. -.- -.- . .--- ? ?"))
+# print(morsesta( ". -. - ?   .--- --- ...   ... . .- ... ... .-   --- -.   . .-. .. -.- --- .. ... -- . .-. -.- -.- . .--- ? ?"))
+
+#ex.8
+T = "The Wright brothers – Orville (August 19, 1871 – January 30, 1948) and Wilbur \
+(April 16, 1867 – May 30, 1912) – were two American aviation pioneers generally credited \
+with inventing, building, and flying the world's first successful motor-operated airplane. \
+They made the first controlled, sustained flight of a powered, heavier-than-air aircraft with \
+the Wright Flyer on December 17, 1903, 4 mi (6 km) south of Kitty Hawk, North Carolina. In 1904–05, \
+the brothers developed their flying machine to make longer-running and more aerodynamic flights with \
+the Wright Flyer II, followed by the first truly practical fixed-wing aircraft, the Wright Flyer III. \
+The Wright brothers were also the first to invent aircraft controls that made fixed-wing powered flight possible. \
+The brothers' breakthrough was their creation of a three-axis control system, which enabled the pilot to steer the \
+aircraft effectively and to maintain its equilibrium. This method remains standard on fixed-wing aircraft of \
+all kinds. From the beginning of their aeronautical work, the Wright brothers focused on developing a reliable \
+method of pilot control as the key to solving \"the flying problem\". This approach differed significantly from \
+other experimenters of the time who put more emphasis on developing powerful engines. Using a \
+small home-built wind tunnel, the Wrights also collected more accurate data than any before, enabling them \
+to design more efficient wings and propellers. Their first U.S. patent did not claim invention of a \
+flying machine, but a system of aerodynamic control that manipulated a flying machine's surfaces. \
+The brothers gained the mechanical skills essential to their success by working for years in their Dayton, \
+Ohio-based shop with printing presses, bicycles, motors, and other machinery. Their work with bicycles, \
+in particular, influenced their belief that an unstable vehicle such as a flying machine could be controlled \
+and balanced with practice. From 1900 until their first powered flights in late 1903, they conducted extensive glider \
+tests that also developed their skills as pilots. Their shop employee Charlie Taylor became an \
+important part of the team, building their first airplane engine in close collaboration with the brothers."
+
+T1 = 'Testataan kirjoittamaasi funktiota. Toistetaan muutaman kerran pari sanaa. Sipuli Sipuli Sipuli omena omena apina apina apina apina apina'
+
+
+def steralize(text:str):
+    clean_text = ''
+    for char in text:
+        if char.isalpha() or char == ' ':
+            clean_text += char
+    return clean_text.lower().split(' ')
+
+def created_keys(text_list:list):
+    return set(text_list)
+
+def create_dict_count(text_list:list):
+    word_count = {}
+    for key in created_keys(text_list):
+        word_count[key] = 0
+    return word_count
+
+def populate_count_dict(merkkijono_list:list, dictionary:dict):
+    for element in merkkijono_list:
+        dictionary[element] = dictionary[element] + 1
+    return dictionary
+
+def create_analysoi_dic(count_dict:dict):
+    final_dict = {}
+    for key, value in count_dict.items():
+        if value == 1 or key == '':
+            pass
+        elif value in final_dict:
+            final_dict[value].append(key)
+        else:
+            final_dict[value] = [key]      
+    return final_dict
+
+def analysoi(merkkijono:str):
+    merkkijono_list = steralize(merkkijono)
+    empty_dict = create_dict_count(merkkijono_list)
+    populated_dict = populate_count_dict(merkkijono_list, empty_dict)
+    analysoi_dict = create_analysoi_dic(populated_dict)
+    sorted_dict = dict(sorted(analysoi_dict.items()))
+    
+    for key, value in sorted_dict.items():
+        print(key, value,sep=' : ')
+
+
+
+
+# analysoi(T)
+print(analysoi(T))
