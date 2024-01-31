@@ -123,4 +123,30 @@ def morseksi(teksti):
         final_text += ' '
     return final_text.strip()
 
-print(morseksi("Morse code"))
+#ex.7
+def find_letter(morse_letter):
+    global morse
+    for key, value in morse.items():
+        if morse_letter =='?':
+            return '?'
+        if morse_letter == value:
+            return key
+
+
+def morsesta(m):
+    global morse
+    final_text_list = []
+    final_text = ''
+        
+    m_list = m.split('   ')
+    for section in m_list:
+        word = ''
+        letters_list = section.split(' ')
+        for letter in letters_list:
+            word += find_letter(letter)
+        final_text_list.append(word)
+
+    final_text = ' '.join(final_text_list)
+    return final_text.strip()
+
+print(morsesta( ". -. - ?   .--- --- ...   ... . .- ... ... .-   --- -.   . .-. .. -.- --- .. ... -- . .-. -.- -.- . .--- ? ?"))
