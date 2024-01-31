@@ -47,3 +47,10 @@ def ex_2():
         ]
     for i in all_result:
         print(i)
+
+#ex3
+def ex_3():
+    englanti_suomi_sanakirja = {}
+    englanti_suomi_sanakirja['apple' ]= 'omena'
+    englanti_suomi_sanakirja['orange' ]= 'appelsiini'
+    englanti_suomi_sanakirja['pear' ]= 'päärynä'
