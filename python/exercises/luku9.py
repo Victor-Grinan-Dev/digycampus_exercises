@@ -1,4 +1,4 @@
-import pickle
+import pickle.load
 import random
 myset = {1, 2, 3}
 mylist = [2, 3]
@@ -216,12 +216,21 @@ def analysoi(merkkijono:str):
     populated_dict = populate_count_dict(merkkijono_list, empty_dict)
     analysoi_dict = create_analysoi_dic(populated_dict)
     sorted_dict = dict(sorted(analysoi_dict.items()))
-    
+
     for key, value in sorted_dict.items():
         print(key, value,sep=' : ')
 
 
-
-
-# analysoi(T)
-print(analysoi(T))
+#ex.b1
+def lue_sanakirja_tiedostosta(polku):
+    with open(polku, 'rb') as file:
+        d = pickle.load(file)
+        for key, value in d.items():
+            print((key, value))
+            
+#ex.b2
+def kirjoita_tiedostoon(tiedosto, objektit):
+    
+    with open(tiedosto, 'wb') as file:
+        for item in objektit:
+            pickle.dump(item, file)
