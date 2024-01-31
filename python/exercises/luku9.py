@@ -54,3 +54,10 @@ def ex_3():
     englanti_suomi_sanakirja['apple' ]= 'omena'
     englanti_suomi_sanakirja['orange' ]= 'appelsiini'
     englanti_suomi_sanakirja['pear' ]= 'päärynä'
+
+#ex.4
+sanakirja_kalat = {'lohi' : 0, 'ahven' : 0}
+kaikki_kalat = ['lohi', 'ahven', 'särki', 'hauki']
+def laske_kalat(kala):
+    if kala in sanakirja_kalat.keys():
+        sanakirja_kalat[kala] = sanakirja_kalat[kala] + 1 
