@@ -1,3 +1,4 @@
+import math
 import pickle
 import os
 #ex.b1
@@ -60,11 +61,72 @@ def parhaat_tulokset(polku):
                 best_attempt[student] = results
     return best_attempt
 
-
-    
-if __name__ == '__main__':
-    print(parhaat_tulokset('test_sessions.pkl'))
     # print(open_file('test_sessions.pkl'))
     # check_best_of_each(open_file('test_sessions.pkl'))
     # delete_file('test_sessions.pkl')
     # append_tiedostoon('test_sessions.pkl', data1)
+
+#ex4b
+result=-1
+first_round=True
+rec_type = ''
+
+def rec_hae(lista:list, haku:int):
+
+    global result
+    global first_round
+    global rec_type
+
+    lista.sort()
+    max_idx = len(lista)-1
+    middle_idx = max_idx//2
+    middle_value = lista[middle_idx]
+
+    if not first_round:
+        # print('-> ' if middle_value < haku else '<- ', end='')
+        print(rec_type, end=' ')
+    print(f"l: {lista} haku: {haku} mid: {middle_value} (i:{middle_idx})")
+    if middle_value > haku:
+        rec_type = '<-'
+    else:
+        rec_type = '->'
+    first_round = False
+    if middle_value == haku: 
+        result = middle_value
+        first_round=True
+        return 
+    
+    elif max_idx >= 1 and middle_value > haku: #left recurssion
+        rec_hae(lista[:middle_idx], haku)
+
+    elif max_idx >= 1 and middle_value < haku: #right recurssion
+        rec_hae(lista[middle_idx+1:], haku)
+    else:
+        # print('-> ' if middle_value < haku else '<- ', end='')
+        print(rec_type, end=' ')
+        result=-1
+    first_round=True
+    return result
+    
+     
+
+
+
+def test9b4():
+    print('(alku)',end=' ')
+    sarja = [2, 3, 4, 6, 6, 8, 9, 10, 10, 12]
+    # sarja =  [2, 3, 4, 6, 5, 8, 9, 10, 10, 12]
+    palautus = rec_hae(sarja, 5)
+    if palautus != -1:
+        print('löytyi:', palautus)
+    else:
+        print('ei löytynyt')
+    # (alku) l: [2, 3, 4, 6, 6, 8, 9, 10, 10, 12] haku: 5 mid: 6 (i:4)
+    # <- l: [2, 3, 4, 6] haku: 5 mid: 3 (i:1)
+    # -> l: [4, 6] haku: 5 mid: 4 (i:0)
+    # -> l: [6] haku: 5 mid: 6 (i:0)
+    # <- ei löytynyt
+
+if __name__ == '__main__':
+    test9b4()
+
