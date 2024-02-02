@@ -101,8 +101,8 @@ def rec_hae(lista:list, haku:int):
 
     elif max_idx >= 1 and middle_value < haku: #right recurssion
         rec_hae(lista[middle_idx+1:], haku)
+        
     else:
-        # print('-> ' if middle_value < haku else '<- ', end='')
         print(rec_type, end=' ')
         result=-1
     first_round=True
