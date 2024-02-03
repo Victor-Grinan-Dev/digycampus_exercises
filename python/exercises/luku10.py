@@ -1,4 +1,5 @@
 import random
+from apuluokat import PlayingCard, Suit
 
 class MyEmployee:
    
@@ -83,7 +84,49 @@ def test_ex_1_once():
     Jani.give_raise(5)
     print(Jani.salary)
 
+#ex.2
+def luo_korttipakka(lista:bool=False):
+    suits = ("Spade", "Heart", "Club", "Diamond")
+    pack = set()
+    
+    
+    for suit_name in suits:
+        suit = Suit(suit_name)
+        for card_number in range(1,14):
+            new_card = PlayingCard(suit, card_number)
+            pack.add(new_card)
+    if lista:
+        list(pack)
+    return pack
+            
+#ex.3
+# add
+# discard
+# intersection
+class Deck:
+    dealt = set()
+    def __init__(self, card_deck:list):
+        self.card_deck = card_deck
+
+    def deal(self):
+        if len(self.dealt) > 40:
+            return False
+        else:
+            #compare that choice card is not in dealt
+            is_dealt = True
+            while is_dealt:
+                choice = random.choice(self.card_deck)
+                if choice not in self.dealt:
+                    is_dealt = False
+                    #add choice to dealt 
+                    self.dealt.add(choice)
+            return choice
+        
+    def shuffle(self):
+        self.dealt = []
 
 if __name__ == '__main__':
-    test_ex_1()
+    # test_ex_1()
     # test_ex_1_once()
+    # luo_korttipakka()
+    pass
