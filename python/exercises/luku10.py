@@ -123,7 +123,34 @@ class Deck:
             return choice
         
     def shuffle(self):
-        self.dealt = []
+        self.dealt = ()
+
+#ex.4
+class Hand:
+    def __init__(self):
+        self.__cards = list()
+        self.__rank = 20
+
+    def add_card(self, card):
+        self.__cards.append(card)
+
+    # tätä metodia kutsutaan, kun kirjoitetaan str(x), missä x on Hand-luokan esiintymä (instance)
+    def __str__(self):
+        sorted_cards = sorted(self.__cards)
+        str_representation = ""
+        for c in sorted_cards:
+            str_representation += str(c) + ", "
+        return str_representation
+
+    # metodi, joka palauttaa True jos kaikki käden kortit ovat samaa maata, False muuten
+    def find_flush(self):
+        is_flush = set()
+        for card in self.__cards:
+            is_flush.add(card.get_suit())
+        if len(is_flush) == 1:
+            return True
+        return False
+
 
 if __name__ == '__main__':
     # test_ex_1()
