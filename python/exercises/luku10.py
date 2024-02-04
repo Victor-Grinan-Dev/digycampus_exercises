@@ -2,6 +2,7 @@ import random
 
 from apuluokat import PlayingCard, Suit
 from apuluokat import Deck as t_deck
+from apuluokat import Hand as t_hand
 
 #ex.1
 class Employee: 
@@ -59,7 +60,7 @@ class MyEmployee:
 
 
 def test_ex_1():
-    print("Testatan luokan koko toimintokirjoa!")
+   
     Jani = Employee("Jani")
     Simo = Employee("Simo")
     Tiina = Employee("Tiina")
@@ -71,7 +72,6 @@ def test_ex_1():
     for day in range(365 * 4):
         for employee in list_employees:
             add_hours = random.randint(2, 16)
-            # print('add hour:', add_hours)
             employee.complete_workday(add_hours)
             if employee.eligible_for_raise():
                 print("Day:", day)
@@ -123,9 +123,10 @@ class Deck:
     def shuffle(self):
         self.dealt = ()
 
+
 #ex.4
 #The method to add to ex 4:
-def find_flush(self):
+def sel(self):
     is_flush = set()
     for card in self.__cards:
         is_flush.add(card.get_suit())
@@ -135,61 +136,29 @@ def find_flush(self):
 
 
 #ex.5
-class Hand:
-    def __init__(self):
-        self.__cards = list()
-        self.__rank = 20
-
-    def add_card(self, card):
-        self.__cards.append(card)
-
-    def adjust_rank(self, new_rank):
-        if new_rank < self.__rank:
-            self.__rank = new_rank
-            return True
-        return False
-
-    def get_high_card(self):
-        high = -1
-        for c in self.__cards:
-            if c.get_value() > high:
-                high = c.get_value()
-            if c.get_value() == 1:
-                high = 14
-        return high
-
-    def find_pairings(self):
-        paria = 0
-        kolmosta = 0
-        nelosta = 0
-        cards_in_hand = []
-        
-        for card in self.__cards:
-            cards_in_hand.append(card.get_value())
-        uniques = list(set(cards_in_hand))
-
-        for card in uniques:
-            count = cards_in_hand.count(card)   
-            if int(count) == 2:
-                paria += 1
-            elif count == 3:
-                kolmosta += 1
-            elif count >= 4:
-                nelosta += 1
-        
-        return paria, kolmosta, nelosta
+#The method to add to ex 5:
+def find_pairings(self):
+    paria = 0
+    kolmosta = 0
+    nelosta = 0
+    cards_in_hand = []
+    for card in self.__cards:
+        cards_in_hand.append(card.get_value())
+    uniques = list(set(cards_in_hand))
+    for card in uniques:
+        count = cards_in_hand.coun(card)   
+        if int(count) == 2:
+            paria += 1
+        elif count == 3:
+            kolmosta += 1
+        elif count >= 4:
+            nelosta += 1
+    
+    return paria, kolmosta, nelosta
        
-    def __str__(self):
-        sorted_cards = sorted(self.__cards)
-        str_representation = ""
-        for c in sorted_cards:
-            str_representation += str(c) + ", "
-        return str_representation.rstrip(', ')
     
 def test_5():
-    # cards = 
     my_deck = t_deck(luo_korttipakka(True))
-    # print(my_deck)
 
     for testi in range(100):
         my_deck.shuffle()
@@ -201,16 +170,131 @@ def test_5():
         hand.add_card(my_deck.deal())
         
         parit, kolmoset, neloset = hand.find_pairings()
-        # print(hand.find_pairings())
+
         if parit > 1 or kolmoset == 1 or neloset == 1:
             print("Käsi nro", testi, ":", hand)
             print("Pareja:", parit)
             print("Kolmosia:", kolmoset)
             print("Nelosia:", neloset)
 
+
+#ex.6
+#The method to add to ex 6:
+def find_straight(self, ace_is_high_card):
+    result = True
+    card_values = []
+    for card in self.__cards:
+        if card.get_value() != 1:
+            card_values.append(card.get_value())
+        elif card.get_value() == 1 and not ace_is_high_card:
+            card_values.append(card.get_value())
+        else:
+            card_values.append(14)
+    card_values.sort()  
+    min_value = min(card_values)    
+    index = 0
+    while result and index < len(card_values):
+        if not card_values[index] == index + min_value:
+            result = False
+            break
+        index += 1
+    return result
+
+
+def test_6():
+    hand = t_hand()     
+    hand.add_card(PlayingCard(Suit("Spade"), 11))
+    hand.add_card(PlayingCard(Suit("Diamond"), 12))
+    hand.add_card(PlayingCard(Suit("Diamond"), 13))
+    hand.add_card(PlayingCard(Suit("Heart"), 10))
+    hand.add_card(PlayingCard(Suit("Heart"), 1)) 
+
+    # hand.add_card(PlayingCard(Suit("Spade"), 4))
+    # hand.add_card(PlayingCard(Suit("Heart"), 3))
+    # hand.add_card(PlayingCard(Suit("Diamond"), 2))
+    # hand.add_card(PlayingCard(Suit("Diamond"), 5))
+    # hand.add_card(PlayingCard(Suit("Heart"), 1))
+
+    if hand.find_straight(False) or hand.find_straight(True):
+        print('löytyi suora!')
+    else:
+        print('suoraa ei löytynyt!')
+
+#ex.7
+#add this method to the class hand
+def get_rank(self):
+
+    pairs, threes, fours = self.__find_pairings()
+    is_flush = self.__find_flush()
+    is_straight = self.__find_straight(True) or self.__find_straight(False)
+
+    if is_flush and is_straight and self.__find_straight(True):
+        #'Royal Flush',
+        self.__adjust_rank(1)
+    elif is_flush and is_straight:
+        #'Straight Flush',
+        self.__adjust_rank(2)
+    elif fours:
+        #'Four of a Kind',
+        self.__adjust_rank(3)
+    elif threes and pairs:
+        #'Full House',
+        self.__adjust_rank(4)
+    elif is_flush:
+        #'Flush',
+        self.__adjust_rank(5)
+    elif is_straight:
+        #'Straight',
+        self.__adjust_rank(6)
+    elif threes and not pairs:
+        #'Three of a Kind',
+        self.__adjust_rank(7)
+    elif pairs == 2:
+        #'Two Pair',
+        self.__adjust_rank(8)
+    elif pairs == 1:
+        #'One Pair',
+        self.__adjust_rank(9)
+    else: 
+        self.__adjust_rank(10)
+
+    return self.__rank
+
+def test_ex_7():
+    cards = luo_korttipakka(lista=True)
+    deck = t_deck(cards)
+    deck.create_52_deck()
+    testit = 10
+    for t in range(testit):
+        deck.shuffle()
+        hand = Hand() 
+        for _ in range(5):
+            hand.add_card(deck.deal())
+        print('Kierros:', t+1, 'rank:', end=' ')
+        print(hand.get_rank_string())
+        print(hand, end = '\n\n')
+
+    # TEST CASE 4
+    hand = Hand()
+    hand.add_card( PlayingCard(Suit("Spade"), 1))
+    hand.add_card( PlayingCard(Suit("Spade"), 2))
+    hand.add_card( PlayingCard(Suit("Spade"), 3))
+    hand.add_card( PlayingCard(Suit("Spade"), 4))
+    hand.add_card( PlayingCard(Suit("Spade"), 5))
+
+
+    print('*****************************************************************************')
+    print(hand)
+    print(hand.get_rank_string())
+    if hand.get_rank() == 2:
+        print('oikein!')
+    else:
+        print('väärin!')
+
 if __name__ == '__main__':
     # test_ex_1()
     # test_ex_1_once()
     # luo_korttipakka()
-    test_5()
+    # test_6()
+    # test_ex_7()
     pass

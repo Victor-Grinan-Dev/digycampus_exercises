@@ -39,7 +39,7 @@ def ex3_1():
 
 #ex.2
 def ex3_2():      
-    for i in range(0, 100): # toistetaan 100 kertaa
+    for _ in range(0, 100): # toistetaan 100 kertaa
         x = random.randint(1, 100)  # satunnaisluku x, väliltä 1-100
 
         # Toteuta tehtävänanto alle, 
