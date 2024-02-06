@@ -77,6 +77,85 @@ def test_ex_2():
     else:
         print('Luottotili ei ole Tili-luokan aliluokka!!')
 
+#ex.3
+class Product:
+
+    def __init__(self, product_id, title, price):
+        self.id = product_id
+        self.title = title
+        self.price = price
+        self.original_price = price
+    
+    def put_on_sale(self, discount_percentage ):
+        self.price -= self.price * ( discount_percentage * 0.01 )
+
+    def return_to_normal_price(self):
+        self.price = self.original_price
+
+class Printer(Product):
+    def __init__(self, product_id, title, price, manufacturer, model):
+        Product.__init__(self, product_id, title, price)
+        self.manufacturer = manufacturer
+        self.model = model
+
+    def print(self, text):
+        print('======', self.manufacturer, self.model, '======')
+        print('<', text, '>')
+
+
+class Book(Product):
+    def __init__(self, product_id, title, price, publisher, isbn):
+        super().__init__(product_id, title, price)
+        self.publisher = publisher
+        self.isbn = isbn
+
+"""
+1-Write a class Textbook that inherits the given class Book, which has an additional public attribute course_id.
+
+2- Extend the superclass Product so that it includes methods
+put_on_sale, which reduces the product's price (attribute price) based on the given argument discount_percentage (integer).
+
+3- return_to_normal_price, which restores the product's price to its original value.
+
+4- Modify the Textbook class so that it overrides the superclass method put_on_sale. The put_on_sale method of the Textbook class reduces the price by only half of the given percentage. That is, a.put_on_sale(10), where a is an instance of the Textbook class, reduces the price by only 5 percent.
+"""
+
+class Textbook(Book):
+
+    def __init__(self, product_id, title, price, publisher, isbn, course_id):
+        super().__init__(product_id, title, price, publisher, isbn)
+        self.course_id = course_id 
+        
+    def put_on_sale(self, discount_percentage ):
+        self.price -= self.price * (( discount_percentage * 0.01 ) / 2)
+
+
+def test_ex_3():
+    tuotteet = [
+    Book(1, 'Old Man and the Sea', 25, 'Penguin Publishing', '0684801221'),
+    Textbook(2, 'Space Flight Dynamics', 55, 'Wiley', '978-1-119-15782-3', 'PHYSICS-255'),
+    Printer(15, 'Pixma Colormax', 155, 'Canon', '3500')
+    ] 
+    print('Alennetaan aluksi hintaa 15%')
+    for t in tuotteet:
+        t.put_on_sale(15)
+        print('Product:', t.id, t.title, 'on sale (15%)')
+        print('Discount from original price:', t.original_price, '->', t.price,
+            'change:', round((t.price/t.original_price-1)*100, 2), '%')
+        
+    print('Alennetaan vielä hintaa 20%')
+    for t in tuotteet:
+        t.put_on_sale(20)
+        print('Product:', t.id, t.title, 'on sale (20%)')
+        print('Discount from original price:', t.original_price, '->', t.price,
+            'change:', round((t.price/t.original_price-1)*100, 2), '%')
+        
+    print('Palautetaan lopulta hinnat takaisin alkuperäisiksi')
+    for t in tuotteet:
+        t.return_to_normal_price()
+        print('Product:', t.id, t.title, 'returns to original price :', t.price)
+
 if __name__ == '__main__':
     # test_ex_2()
+    test_ex_3()
     pass
