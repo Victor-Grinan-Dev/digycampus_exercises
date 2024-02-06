@@ -15,7 +15,6 @@ g = 100
 h = g / d
 
 #ex.3
-
 print(a+c)
 print(b-c)
 print(d*b)
