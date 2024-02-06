@@ -109,17 +109,6 @@ class Book(Product):
         self.publisher = publisher
         self.isbn = isbn
 
-"""
-1-Write a class Textbook that inherits the given class Book, which has an additional public attribute course_id.
-
-2- Extend the superclass Product so that it includes methods
-put_on_sale, which reduces the product's price (attribute price) based on the given argument discount_percentage (integer).
-
-3- return_to_normal_price, which restores the product's price to its original value.
-
-4- Modify the Textbook class so that it overrides the superclass method put_on_sale. The put_on_sale method of the Textbook class reduces the price by only half of the given percentage. That is, a.put_on_sale(10), where a is an instance of the Textbook class, reduces the price by only 5 percent.
-"""
-
 class Textbook(Book):
 
     def __init__(self, product_id, title, price, publisher, isbn, course_id):
