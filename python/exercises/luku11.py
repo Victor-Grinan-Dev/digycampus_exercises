@@ -144,7 +144,163 @@ def test_ex_3():
         t.return_to_normal_price()
         print('Product:', t.id, t.title, 'returns to original price :', t.price)
 
+"""
+TASK:
+
+Write a class HybridCar that inherits both the Car and ElectricCar classes. (In this order).
+Override the calculate_range(self) method of the superclassess so that it calculates the sum of the values returned by the same-named methods of both superclassess.
+Override the drive(self, distance) method of the superclassess so that:
+First, check if the combined range (battery and fuel) is sufficient. If not, print the following message, where X is the combined range rounded to two decimal places:
+'Cannot travel that distance, current range: X km'
+If the range is sufficient, consume the battery first and then the fuel using the methods drive() and calculate_range() of the superclassess. Essentially, drive first with the ElectricCar class, and if the battery runs out, continue with the Car class.
+
+Override the status(self) method of the superclassess so that it returns a string "X Y", where X is the return of the status method of the ElectricCar class, and Y is the return of the status method of the Car class. (note the space!)
+TIPS:
+
+When inheriting multiple classes, you can access the method of the desired superclass as follows: ElectricCar.drive(self, 5) In addition to the traveled distance, provide self as an argument that directs the method call to the superclass ElectricCar.
+"""
+#ex.4
+class Car:
+    def __init__(self, fuel_consumption):
+        self.traveled_distance = 0
+        self.fuel = 50
+        self.fuel_consumption = fuel_consumption
+
+    def drive(self, distance):
+        if self.fuel - self.fuel_consumption * distance >= 0:
+            self.traveled_distance += distance
+            self.fuel -= self.fuel_consumption * distance
+            print('using', round(self.fuel_consumption*distance, 2), 'liters of fuel to drive', round(distance, 2), 'km')
+
+        else:
+            return False
+
+    def refuel(self, fuel_amount):
+        self.fuel = min(self.fuel + fuel_amount, 50)
+
+    def calculate_range(self):
+        return self.fuel / self.fuel_consumption
+
+    def status(self):
+        fuel = str(round(self.fuel, 2))
+        return 'Remaining fuel ' + fuel + ' liters'
+
+
+class ElectricCar:
+    def __init__(self, battery_consumption):
+        self.battery = 100
+        self.battery_consumption = battery_consumption
+        self.traveled_distance=0
+
+    def drive(self, distance):
+        if self.battery - self.battery_consumption * distance >= 0:
+            self.traveled_distance += distance
+            self.battery -= self.battery_consumption * distance
+            print('using', round(self.battery_consumption*distance, 2), '% battery to drive', round(distance,2), 'km')
+        else:
+            return False
+
+    def charge_battery(self, charge):
+        self.battery = min(self.battery + charge, 100)
+
+    def calculate_range(self):
+        return self.battery / self.battery_consumption
+
+    def status(self):
+        btr = str(round(self.battery, 2))
+        return 'Remaining battery ' + btr + '%'
+"""
+In Python, a class can inherit properties from multiple superclassess. Familiarize yourself with the topic online and then proceed with the task below:
+
+TASK:
+
+1- Write a class HybridCar that inherits both the Car and ElectricCar classes. (In this order).
+
+2- Override the calculate_range(self) method of the superclassess so that it calculates the sum of the values returned by the same-named methods of both superclassess.
+
+3- Override the drive(self, distance) method of the superclassess so that:
+First, check if the combined range (battery and fuel) is sufficient. If not, print the following message, where X is the combined range rounded to two decimal places:
+'Cannot travel that distance, current range: X km'
+If the range is sufficient, consume the battery first and then the fuel using the methods drive() and calculate_range() of the superclassess. Essentially, drive first with the ElectricCar class, and if the battery runs out, continue with the Car class.
+
+4- Override the status(self) method of the superclassess so that it returns a string "X Y", where X is the return of the status method of the ElectricCar class, and Y is the return of the status method of the Car class. (note the space!)
+TIPS:
+
+When inheriting multiple classes, you can access the method of the desired superclass as follows: ElectricCar.drive(self, 5) In addition to the traveled distance, provide self as an argument that directs the method call to the superclass ElectricCar.
+"""
+
+class HybridCar(Car, ElectricCar):
+    def __init__(self, fuel_consumption, battery_consumption):
+        Car.__init__(self, fuel_consumption) 
+        ElectricCar.__init__(self, battery_consumption)
+    
+    def calculate_range(self):
+        return Car.calculate_range(self) + ElectricCar.calculate_range(self)
+    
+    def max_battery_yield(self, battery_status):
+        return round(battery_status / self.battery_consumption)  
+
+    def drive(self, distance):
+        range = self.calculate_range()
+        max_distance_with_battery= self.max_battery_yield(self.battery)
+        self.traveled_distance = 0
+        if range >= distance:
+            if distance <= max_distance_with_battery:
+                ElectricCar.drive(self, max_distance_with_battery)
+                distance -= max_distance_with_battery
+
+                self.traveled_distance += distance
+                self.battery -= self.battery_consumption * self.traveled_distance
+
+            elif distance > max_distance_with_battery:
+                ElectricCar.drive(self, max_distance_with_battery)
+                distance -= max_distance_with_battery
+
+                self.traveled_distance += distance
+                self.battery -= self.battery_consumption * self.traveled_distance
+
+                Car.drive(self, distance)
+            else:
+                ElectricCar.drive(self, distance)
+        else:
+            print(f'Cannot travel that distance, current range: {round(range,2)} km')
+            return f'Cannot travel that distance, current range: {round(range,2)} km'
+
+    def status(self):
+        return f'{ElectricCar.status(self)} {Car.status(self)}'
+
+def test_ex_4():
+
+    # auto = HybridCar(0.05, 0.7)
+    # auto.status()
+    # auto.drive(50)
+    print('HybridCar is a subclass of Car'
+        if Car in type.mro(HybridCar) else
+        'HybridCar is not a subclass of Car!!')
+
+    print('HybridCar is a subclass of ElectricCar'
+        if ElectricCar in type.mro(HybridCar) else
+        'HybridCar is not a subclass of ElectricCar!!')
+
+    auto = HybridCar(0.05, 0.7)
+    auto.drive(20)
+    auto.drive(100)
+    auto.drive(50)
+    print(auto.status())
+    auto.charge_battery(100)
+    auto.refuel(100)
+    print(auto.status())
+    auto.drive(1000)
+
+    print('**********************************')
+
+    # auto = HybridCar(0.05, 0.7)
+    # auto.drive(1000)
+    # print(auto.status())
+    # auto.drive(1000)
+
 if __name__ == '__main__':
     # test_ex_2()
-    test_ex_3()
+    # test_ex_3()
+    test_ex_4()
     pass
