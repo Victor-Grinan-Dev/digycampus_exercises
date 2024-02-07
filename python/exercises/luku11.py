@@ -238,17 +238,17 @@ class HybridCar(Car, ElectricCar):
         return self.battery / self.battery_consumption + self.fuel / self.fuel_consumption
     
     def max_battery_yield(self, battery_status):
-        return round(battery_status / self.battery_consumption)  
+        return battery_status / self.battery_consumption
 
     def drive_with_battery(self, distance):
             self.traveled_distance += distance
             self.battery -= self.battery_consumption * distance
-            print('using', round(self.battery_consumption*distance,1), '% battery to drive', round(distance,2), 'km')
+            print('using', round(self.battery_consumption*distance,2), '% battery to drive', round(distance,2), 'km')
 
     def drive_with_fuel(self, distance):
             self.traveled_distance += distance
             self.fuel -= self.fuel_consumption * distance
-            print('using', round(self.fuel_consumption*distance, 1), 'liters of fuel to drive', round(distance, 2), 'km')
+            print('using', round(self.fuel_consumption*distance, 2), 'liters of fuel to drive', round(distance, 2), 'km')
 
     def drive(self, distance):
         range = self.calculate_range()
@@ -272,9 +272,6 @@ class HybridCar(Car, ElectricCar):
 
 def test_ex_4():
 
-    # auto = HybridCar(0.05, 0.7)
-    # auto.status()
-    # auto.drive(50)
     print('HybridCar is a subclass of Car'
         if Car in type.mro(HybridCar) else
         'HybridCar is not a subclass of Car!!')
