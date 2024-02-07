@@ -235,33 +235,34 @@ class HybridCar(Car, ElectricCar):
         ElectricCar.__init__(self, battery_consumption)
     
     def calculate_range(self):
-        return Car.calculate_range(self) + ElectricCar.calculate_range(self)
+        return self.battery / self.battery_consumption + self.fuel / self.fuel_consumption
     
     def max_battery_yield(self, battery_status):
         return round(battery_status / self.battery_consumption)  
+
+    def drive_with_battery(self, distance):
+            self.traveled_distance += distance
+            self.battery -= self.battery_consumption * distance
+            print('using', round(self.battery_consumption*distance,1), '% battery to drive', round(distance,2), 'km')
+
+    def drive_with_fuel(self, distance):
+            self.traveled_distance += distance
+            self.fuel -= self.fuel_consumption * distance
+            print('using', round(self.fuel_consumption*distance, 1), 'liters of fuel to drive', round(distance, 2), 'km')
 
     def drive(self, distance):
         range = self.calculate_range()
         max_distance_with_battery= self.max_battery_yield(self.battery)
         self.traveled_distance = 0
-        if range >= distance:
+        if range > distance:
             if distance <= max_distance_with_battery:
-                ElectricCar.drive(self, max_distance_with_battery)
-                distance -= max_distance_with_battery
-
-                self.traveled_distance += distance
-                self.battery -= self.battery_consumption * self.traveled_distance
+                self.drive_with_battery(distance)
 
             elif distance > max_distance_with_battery:
-                ElectricCar.drive(self, max_distance_with_battery)
-                distance -= max_distance_with_battery
+                self.drive_with_battery(max_distance_with_battery)
+                distance-= max_distance_with_battery
+                self.drive_with_fuel(distance)
 
-                self.traveled_distance += distance
-                self.battery -= self.battery_consumption * self.traveled_distance
-
-                Car.drive(self, distance)
-            else:
-                ElectricCar.drive(self, distance)
         else:
             print(f'Cannot travel that distance, current range: {round(range,2)} km')
             return f'Cannot travel that distance, current range: {round(range,2)} km'
