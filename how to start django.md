@@ -15,4 +15,4 @@ cd [project-name]
 
 python manage.py runserver
 ```
-- Navigate to you browser localhost: http://127.0.0.1:8000/
+- Navigate to you browser localhost: http://127.0.0.1:8000/ 
